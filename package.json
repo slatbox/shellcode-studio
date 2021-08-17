@@ -1,0 +1,95 @@
+{
+	"name": "shellcode-studio",
+	"displayName": "Shellcode Studio",
+	"description": "A shellcode tool to make convenient shellcode programing work flow.",
+	"publisher": "JeffreySwen",
+	"version": "1.0.0",
+	"keywords": ["shellcode","assembly","nasm"],
+	"engines": {
+		"vscode": "^1.59.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/slatbox/shellcode-studio"
+	},
+	"homepage": "https://github.com/slatbox/shellcode-studio/blob/master/README.md",
+	"icon": "resources/images/icon_v3.png",
+	"activationEvents": [
+		"onLanguage:nasm"
+	],
+	"main": "./src/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "shellcode-studio.genShellcode",
+				"title": "shellcode:Generate shellcode from current asm file.",
+				"icon":"./resources/images/build2.svg"
+			},
+			{
+				"command": "shellcode-studio.startGdb",
+				"title": "shellcode:Degbug shellcode.",
+				"icon":"./resources/images/debug2.svg"
+			}
+		],
+		"snippets": [
+			{
+				
+				"language": "nasm",
+				"path": "./snippets/hashLoop.json"
+			}
+		],
+		"menus": {
+			"editor/title": [{
+				"when": "resourceLangId == nasm",
+				"command": "shellcode-studio.genShellcode",
+				"alt": "shellcode-studio.genShellcode",
+				"group": "navigation"
+			},
+			{
+				"when": "resourceLangId == nasm",
+				"command": "shellcode-studio.startGdb",
+				"alt": "shellcode-studio.startGdb",
+				"group": "navigation"
+			}]
+		},
+		"configuration": {
+			"type": "object",
+			
+			"title": "Shellcode Studio Configuration", 
+			"properties": {
+				
+				"shellcode-studio.ollydbgPath": {
+					"type": "string",
+					"default": "",
+					"description": "Path of ollydbg.exe.To dbg shellcode,do set this path."
+				},
+				"shellcode-studio.clearTemFile": {
+					"type": "boolean",
+					"default": true,
+					"description": "if to clear all tem files."
+				}
+			
+			}
+		}
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.59.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "14.x",
+		"eslint": "^7.27.0",
+		"glob": "^7.1.7",
+		"mocha": "^8.4.0",
+		"typescript": "^4.3.2",
+		"vscode-test": "^1.5.2"
+	}
+}

@@ -1,0 +1,16 @@
+{
+    "hashLoop": {
+        "prefix": "hash",
+        "body": [
+            "hash_loop:",
+            "\tmovsx eax,[esi]",
+            "\tcmp al,ah",
+            "\tjz compare_hash",
+            "\tror edx,7",
+            "\tadd edx,eax",
+            "\tinc esi",
+            "\tjmp hash_loop"
+        ],
+        "description": "hash loop snippet"
+    }
+}
