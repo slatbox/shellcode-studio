@@ -66,8 +66,36 @@ function genShellcode(asm_file_path) {
     var obj_file = fs.readFileSync(obj_file_path)
     cutObjFile(obj_file, obj_file_path)
 
-
 }
+function asmAndLink(asm_file_path)
+{
+    assembly(asm_file_path)
+    // generate exe file
+    var obj_file_path = asm_file_path.split('.')[0] + ".obj"
+    var output_path = asm_file_path.split('.')[0] + ".exe"
+    var cmd = "gcc " + obj_file_path + " -o " + output_path
+    try {
+        execSync(cmd)
+    } catch (error) {
+        vscode.window.showErrorMessage('A exception happened in link process.See error messages in file asm.log')
+        var folder_path = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(asm_file_path)).uri.fsPath
+        fs.writeFileSync(folder_path + '\\asm.log', error.message)
+    }
+    var old_obj_file_path = asm_file_path.split('.')[0] + '.obj'
+    if(fs.existsSync(old_obj_file_path) == true)
+        fs.rmSync(old_obj_file_path)
+}
+function runNasmProgram(asm_file_path)
+{
+    asmAndLink(asm_file_path)
+    var output_path = asm_file_path.split('.')[0] + ".exe"
+    var terminal = vscode.window.activeTerminal
+    if(terminal == undefined)
+        terminal = vscode.window.createTerminal()
+    terminal.show()
+    terminal.sendText(output_path)
+}
+
 async function genCFile(asm_file_path) {
     var dir = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(asm_file_path)).uri.fsPath
     var add_nop = vscode.workspace.getConfiguration().get('shellcode-studio.addNopMargin');
@@ -115,5 +143,7 @@ module.exports = {
     cutObjFile,
     genShellcode,
     genCFile,
-    startDBG
+    startDBG,
+    asmAndLink,
+    runNasmProgram
 }

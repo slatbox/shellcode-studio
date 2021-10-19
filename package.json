@@ -30,16 +30,27 @@
 				"icon":"./resources/images/build2.svg"
 			},
 			{
-				"command": "shellcode-studio.startGdb",
+				"command": "shellcode-studio.assembleAndLink",
+				"title": "shellcode:Assemble and link your nasm file."
+			},
+			{
+				"command": "shellcode-studio.runNasmProgram",
+				"title": "shellcode:Assemble,link,and run the nasm program."
+			},
+			{
+				"command": "shellcode-studio.dbgShellcode",
 				"title": "shellcode:Degbug shellcode.",
 				"icon":"./resources/images/debug2.svg"
 			}
 		],
 		"snippets": [
 			{
-				
 				"language": "nasm",
 				"path": "./snippets/hashLoop.json"
+			},
+			{
+				"language": "nasm",
+				"path": "./snippets/nasmTemplate.json"
 			}
 		],
 		"menus": {
@@ -51,8 +62,8 @@
 			},
 			{
 				"when": "resourceLangId == nasm",
-				"command": "shellcode-studio.startGdb",
-				"alt": "shellcode-studio.startGdb",
+				"command": "shellcode-studio.dbgShellcode",
+				"alt": "shellcode-studio.dbgShellcode",
 				"group": "navigation"
 			}]
 		},

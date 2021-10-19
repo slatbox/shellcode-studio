@@ -1,0 +1,21 @@
+{
+    "nasmTemplate": {
+        "prefix": "template",
+        "body": [
+            "global _main",
+            "extern _printf",
+            "",
+            "section .data",
+            "\tmessage:\tdb\t'hello world',10,0",
+            "",
+            "section .text",
+            "_main",
+            "",
+            "\tpush message",
+            "\tcall _printf",
+            "\tadd esp,4",
+            "\tret"
+        ],
+        "description": "nasm template of hello world"
+    }
+}

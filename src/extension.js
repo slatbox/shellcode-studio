@@ -27,15 +27,27 @@ function activate(context) {
 		var current_doc = vscode.window.activeTextEditor.document.fileName
 		genAPI.genCFile(current_doc)
 	});
-	let disposable3 = vscode.commands.registerCommand('shellcode-studio.startGdb', function () {
+	let disposable3 = vscode.commands.registerCommand('shellcode-studio.dbgShellcode', function () {
 		// The code you place here will be executed every time your command is executed
 		var current_doc = vscode.window.activeTextEditor.document.fileName
 		genAPI.startDBG(current_doc)
+	});
+	let disposable4 = vscode.commands.registerCommand('shellcode-studio.assembleAndLink', function () {
+		// The code you place here will be executed every time your command is executed
+		var current_doc = vscode.window.activeTextEditor.document.fileName
+		genAPI.asmAndLink(current_doc)
+	});
+	let disposable5 = vscode.commands.registerCommand('shellcode-studio.runNasmProgram', function () {
+		// The code you place here will be executed every time your command is executed
+		var current_doc = vscode.window.activeTextEditor.document.fileName
+		genAPI.runNasmProgram(current_doc)
 	});
 	
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposable2);
 	context.subscriptions.push(disposable3);
+	context.subscriptions.push(disposable4);
+	context.subscriptions.push(disposable5);
 }
 
 // this method is called when your extension is deactivated
